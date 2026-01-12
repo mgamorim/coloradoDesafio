@@ -1,3 +1,12 @@
+/*
+ * Projeto: Sistema de Gerenciamento de Clientes - Grupo Colorado
+ * Autor: Mauricio Amorim
+ * GitHub: https://github.com/mgamorim
+ * Email: mauricioamorim22@gmail.com
+ * Data: Janeiro 2026
+ * Descrição: Aplicação Web MVC para gerenciamento de clientes usando ASP.NET Core 6.0
+ */
+
 using ColoradoDesafio.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);

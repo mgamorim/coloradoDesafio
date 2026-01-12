@@ -1,3 +1,12 @@
+/*
+ * Projeto: Sistema de Gerenciamento de Clientes - Grupo Colorado
+ * Autor: Mauricio Amorim
+ * GitHub: https://github.com/mgamorim
+ * Email: mauricioamorim22@gmail.com
+ * Data: Janeiro 2026
+ * Descrição: API RESTful para gerenciamento de clientes usando ASP.NET Core 6.0
+ */
+
 using ColoradoDesafio.Data.Context;
 using ColoradoDesafio.Data.Repositories;
 using ColoradoDesafio.Domain.Interfaces;
@@ -36,11 +45,12 @@ builder.Services.AddSwaggerGen(c =>
     {
         Title = "Colorado Desafio API",
         Version = "v1",
-        Description = "API RESTful para gerenciamento de clientes - Grupo Colorado",
+        Description = "API RESTful para gerenciamento de clientes - Desenvolvido por Mauricio Amorim para o Grupo Colorado",
         Contact = new Microsoft.OpenApi.Models.OpenApiContact
         {
-            Name = "Grupo Colorado",
-            Email = "contato@colorado.com"
+            Name = "Mauricio Amorim",
+            Email = "mauricioamorim22@gmail.com",
+            Url = new Uri("https://github.com/mgamorim")
         }
     });
 });
