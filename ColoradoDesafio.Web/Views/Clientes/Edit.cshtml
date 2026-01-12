@@ -1,0 +1,239 @@
+@model ColoradoDesafio.Web.Models.ClienteViewModel
+
+@{
+    ViewData["Title"] = "Editar Cliente";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2><i class="fas fa-user-edit"></i> Editar Cliente</h2>
+            <hr />
+        </div>
+    </div>
+
+    <form asp-action="Edit" id="clienteForm">
+        <input type="hidden" asp-for="CodigoCliente" />
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+        
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>Dados do Cliente</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="Nome" class="form-label"></label>
+                            <input asp-for="Nome" class="form-control" />
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label asp-for="CPF" class="form-label"></label>
+                            <input asp-for="CPF" class="form-control" id="cpfInput" />
+                            <span asp-validation-for="CPF" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="mb-3">
+                            <label asp-for="TipoPessoa" class="form-label"></label>
+                            <select asp-for="TipoPessoa" class="form-select">
+                                <option value="">Selecione...</option>
+                                <option value="FÍSICA">Física</option>
+                                <option value="JURÍDICA">Jurídica</option>
+                            </select>
+                            <span asp-validation-for="TipoPessoa" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Documento" class="form-label"></label>
+                            <input asp-for="Documento" class="form-control" />
+                            <span asp-validation-for="Documento" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Cadastro" class="form-label"></label>
+                            <input asp-for="Cadastro" class="form-control" type="date" />
+                            <span asp-validation-for="Cadastro" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label asp-for="Endereco" class="form-label"></label>
+                            <input asp-for="Endereco" class="form-control" />
+                            <span asp-validation-for="Endereco" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label asp-for="Cidade" class="form-label"></label>
+                            <input asp-for="Cidade" class="form-control" />
+                            <span asp-validation-for="Cidade" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="mb-3">
+                            <label asp-for="Estado" class="form-label"></label>
+                            <input asp-for="Estado" class="form-control" maxlength="2" />
+                            <span asp-validation-for="Estado" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mb-3">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5>Telefones</h5>
+                <button type="button" class="btn btn-sm btn-success" id="addTelefone">
+                    <i class="fas fa-plus"></i> Adicionar Telefone
+                </button>
+            </div>
+            <div class="card-body">
+                <div id="telefonesContainer">
+                    @if (Model.Telefones != null && Model.Telefones.Any())
+                    {
+                        @for (int i = 0; i < Model.Telefones.Count; i++)
+                        {
+                            <div class="telefone-row mb-3 border p-3 rounded" data-index="@i">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="form-label">Tipo</label>
+                                        <select asp-for="Telefones[@i].TipoTelefone" class="form-select">
+                                            <option value="">Selecione...</option>
+                                            @foreach (var tipo in (IEnumerable<ColoradoDesafio.Web.Models.TipoTelefoneViewModel>)ViewBag.TiposTelefone)
+                                            {
+                                                <option value="@tipo.Descricao">@tipo.Descricao</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label">DDD</label>
+                                        <input asp-for="Telefones[@i].DDD" class="form-control" maxlength="3" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Número</label>
+                                        <input asp-for="Telefones[@i].Numero" class="form-control telefone-input" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label">Descrição</label>
+                                        <input asp-for="Telefones[@i].Descricao" class="form-control" />
+                                    </div>
+                                    <div class="col-md-1 d-flex align-items-end">
+                                        <button type="button" class="btn btn-danger btn-remove-telefone w-100">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Salvar
+                </button>
+                <a asp-action="Index" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Cancelar
+                </a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    
+    <script>
+        let telefoneIndex = @(Model.Telefones?.Count ?? 0);
+        const tiposTelefone = @Html.Raw(Json.Serialize(ViewBag.TiposTelefone));
+
+        function createTelefoneRow() {
+            const tiposOptions = tiposTelefone.map(t => 
+                `<option value="${t.descricao}">${t.descricao}</option>`
+            ).join('');
+
+            return `
+                <div class="telefone-row mb-3 border p-3 rounded" data-index="${telefoneIndex}">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label class="form-label">Tipo</label>
+                            <select name="Telefones[${telefoneIndex}].TipoTelefone" class="form-select" required>
+                                <option value="">Selecione...</option>
+                                ${tiposOptions}
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">DDD</label>
+                            <input type="text" name="Telefones[${telefoneIndex}].DDD" class="form-control" maxlength="3" />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Número</label>
+                            <input type="text" name="Telefones[${telefoneIndex}].Numero" class="form-control telefone-input" required />
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">Descrição</label>
+                            <input type="text" name="Telefones[${telefoneIndex}].Descricao" class="form-control" />
+                        </div>
+                        <div class="col-md-1 d-flex align-items-end">
+                            <button type="button" class="btn btn-danger btn-remove-telefone w-100">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        $(document).ready(function() {
+            // Máscara CPF
+            $('#cpfInput').on('input', function() {
+                let value = $(this).val().replace(/\D/g, '');
+                if (value.length <= 11) {
+                    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                    value = value.replace(/(\d{3})(\d)/, '$1.$2');
+                    value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
+                    $(this).val(value);
+                }
+            });
+
+            // Adicionar telefone
+            $('#addTelefone').on('click', function() {
+                $('#telefonesContainer').append(createTelefoneRow());
+                telefoneIndex++;
+                
+                // Aplicar máscara nos novos inputs
+                $('.telefone-input').last().on('input', function() {
+                    let value = $(this).val().replace(/\D/g, '');
+                    if (value.length <= 11) {
+                        if (value.length <= 10) {
+                            value = value.replace(/(\d{4})(\d)/, '$1-$2');
+                        } else {
+                            value = value.replace(/(\d{5})(\d)/, '$1-$2');
+                        }
+                        $(this).val(value);
+                    }
+                });
+            });
+
+            // Remover telefone
+            $(document).on('click', '.btn-remove-telefone', function() {
+                $(this).closest('.telefone-row').remove();
+            });
+        });
+    </script>
+}

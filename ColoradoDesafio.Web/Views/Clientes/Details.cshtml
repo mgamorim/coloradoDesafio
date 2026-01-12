@@ -1,0 +1,105 @@
+@model ColoradoDesafio.Web.Models.ClienteViewModel
+
+@{
+    ViewData["Title"] = "Detalhes do Cliente";
+}
+
+<div class="container mt-4">
+    <div class="row mb-3">
+        <div class="col">
+            <h2><i class="fas fa-user"></i> Detalhes do Cliente</h2>
+        </div>
+        <div class="col text-end">
+            <a asp-action="Edit" asp-route-id="@Model.CodigoCliente" class="btn btn-warning">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5>Informações do Cliente</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">Código:</dt>
+                        <dd class="col-sm-8">@Model.CodigoCliente</dd>
+
+                        <dt class="col-sm-4">Nome:</dt>
+                        <dd class="col-sm-8">@Model.Nome</dd>
+
+                        <dt class="col-sm-4">CPF:</dt>
+                        <dd class="col-sm-8">@(Model.CPF ?? "-")</dd>
+
+                        <dt class="col-sm-4">Tipo Pessoa:</dt>
+                        <dd class="col-sm-8">@Model.TipoPessoa</dd>
+
+                        <dt class="col-sm-4">Documento:</dt>
+                        <dd class="col-sm-8">@(Model.Documento ?? "-")</dd>
+                    </dl>
+                </div>
+                <div class="col-md-6">
+                    <dl class="row">
+                        <dt class="col-sm-4">Cadastro:</dt>
+                        <dd class="col-sm-8">@(Model.Cadastro?.ToString("dd/MM/yyyy") ?? "-")</dd>
+
+                        <dt class="col-sm-4">Endereço:</dt>
+                        <dd class="col-sm-8">@(Model.Endereco ?? "-")</dd>
+
+                        <dt class="col-sm-4">Cidade:</dt>
+                        <dd class="col-sm-8">@(Model.Cidade ?? "-")</dd>
+
+                        <dt class="col-sm-4">Estado:</dt>
+                        <dd class="col-sm-8">@(Model.Estado ?? "-")</dd>
+
+                        <dt class="col-sm-4">Data Info:</dt>
+                        <dd class="col-sm-8">@Model.DataInformacao.ToString("dd/MM/yyyy HH:mm")</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h5>Telefones</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Telefones != null && Model.Telefones.Any())
+            {
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Tipo</th>
+                                <th>DDD</th>
+                                <th>Número</th>
+                                <th>Descrição</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var telefone in Model.Telefones)
+                            {
+                                <tr>
+                                    <td>@telefone.TipoTelefone</td>
+                                    <td>@(telefone.DDD ?? "-")</td>
+                                    <td>@telefone.Numero</td>
+                                    <td>@(telefone.Descricao ?? "-")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <p class="text-muted">Nenhum telefone cadastrado.</p>
+            }
+        </div>
+    </div>
+</div>

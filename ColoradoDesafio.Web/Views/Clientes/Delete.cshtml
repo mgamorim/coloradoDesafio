@@ -1,0 +1,77 @@
+@model ColoradoDesafio.Web.Models.ClienteViewModel
+
+@{
+    ViewData["Title"] = "Excluir Cliente";
+}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-danger"><i class="fas fa-exclamation-triangle"></i> Excluir Cliente</h2>
+            <hr />
+        </div>
+    </div>
+
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Atenção!</h4>
+        <p>Você tem certeza que deseja excluir este cliente?</p>
+        <hr>
+        <p class="mb-0">Esta ação não poderá ser desfeita.</p>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5>Dados do Cliente</h5>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Código:</dt>
+                <dd class="col-sm-9">@Model.CodigoCliente</dd>
+
+                <dt class="col-sm-3">Nome:</dt>
+                <dd class="col-sm-9">@Model.Nome</dd>
+
+                <dt class="col-sm-3">CPF:</dt>
+                <dd class="col-sm-9">@(Model.CPF ?? "-")</dd>
+
+                <dt class="col-sm-3">Tipo Pessoa:</dt>
+                <dd class="col-sm-9">@Model.TipoPessoa</dd>
+
+                <dt class="col-sm-3">Cidade:</dt>
+                <dd class="col-sm-9">@(Model.Cidade ?? "-")</dd>
+
+                <dt class="col-sm-3">Estado:</dt>
+                <dd class="col-sm-9">@(Model.Estado ?? "-")</dd>
+            </dl>
+        </div>
+    </div>
+
+    @if (Model.Telefones != null && Model.Telefones.Any())
+    {
+        <div class="card mb-3">
+            <div class="card-header">
+                <h5>Telefones que serão excluídos</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group">
+                    @foreach (var telefone in Model.Telefones)
+                    {
+                        <li class="list-group-item">
+                            <strong>@telefone.TipoTelefone:</strong> @(telefone.DDD) @telefone.Numero
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="CodigoCliente" />
+        <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash"></i> Confirmar Exclusão
+        </button>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-times"></i> Cancelar
+        </a>
+    </form>
+</div>
