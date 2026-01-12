@@ -331,7 +331,7 @@ Abra seu navegador e acesse:
 
 **Mauricio Amorim**
 - GitHub: [@mgamorim](https://github.com/mgamorim)
-- Email: contato@exemplo.com
+- Email: mauricioamorim22@gmail.com
 
 ## ?? Licença
 
